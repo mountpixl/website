@@ -1,0 +1,249 @@
+---
+import { SEO } from 'astro-seo';
+import { ViewTransitions } from 'astro:transitions';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonical?: string;
+  noindex?: boolean;
+  schema?: object;
+}
+
+const {
+  title,
+  description,
+  ogImage = '/og-image.png',
+  canonical,
+  noindex = false,
+  schema,
+} = Astro.props;
+
+const siteUrl = 'https://mountpixl.com';
+const fullTitle = title === 'Mount Pixl' ? title + ' | AI Consulting for SMBs' : title + ' | Mount Pixl';
+const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteUrl).href;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title={fullTitle}
+      description={description}
+      canonical={canonicalUrl}
+      noindex={noindex}
+      openGraph={{
+        basic: {
+          title: fullTitle,
+          type: 'website',
+          image: ogImageUrl,
+        },
+        optional: {
+          description,
+          siteName: 'Mount Pixl',
+          locale: 'en_CA',
+        },
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        title: fullTitle,
+        description,
+        image: ogImageUrl,
+      }}
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+    {schema && (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    )}
+
+    <ViewTransitions />
+  </head>
+  <body class="min-h-screen flex flex-col bg-white text-deep-green antialiased">
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="custom-cursor"></div>
+
+    <!-- Grain Texture Overlay -->
+    <div class="grain-overlay" aria-hidden="true"></div>
+
+    <Nav />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      import Lenis from 'lenis';
+      import gsap from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ==========================================
+      // 1. Lenis Smooth Scroll
+      // ==========================================
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        touchMultiplier: 2,
+      });
+
+      lenis.on('scroll', ScrollTrigger.update);
+
+      gsap.ticker.add((time: number) => {
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+
+      // ==========================================
+      // 2. Custom Cursor (mix-blend-mode: difference)
+      // ==========================================
+      const cursor = document.getElementById('custom-cursor');
+      if (cursor && window.matchMedia('(hover: hover)').matches) {
+        const xTo = gsap.quickTo(cursor, 'left', { duration: 0.4, ease: 'power3' });
+        const yTo = gsap.quickTo(cursor, 'top', { duration: 0.4, ease: 'power3' });
+
+        window.addEventListener('mousemove', (e) => {
+          xTo(e.clientX);
+          yTo(e.clientY);
+        });
+
+        // Grow cursor on interactive elements
+        document.querySelectorAll('a, button, [role="button"], input, textarea, select').forEach((el) => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+        });
+      }
+
+      // ==========================================
+      // 3. Text Split Reveal Animations
+      // ==========================================
+      document.querySelectorAll<HTMLElement>('[data-split-reveal]').forEach((el) => {
+        const text = el.textContent || '';
+        const words = text.split(/\s+/).filter(Boolean);
+        el.innerHTML = words
+          .map((w) => `<span class="word-mask"><span class="word-inner">${w}</span></span>`)
+          .join(' ');
+
+        gsap.to(el.querySelectorAll('.word-inner'), {
+          y: 0,
+          duration: 0.8,
+          stagger: 0.05,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            once: true,
+          },
+        });
+      });
+
+      // ==========================================
+      // 4. Stagger Reveal Elements
+      // ==========================================
+      document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
+        const direction = el.getAttribute('data-reveal') || 'up';
+        const from: gsap.TweenVars = { opacity: 0, duration: 0.8, ease: 'power3.out' };
+
+        if (direction === 'left') from.x = -60;
+        else if (direction === 'right') from.x = 60;
+        else if (direction === 'scale') from.scale = 0.9;
+        else from.y = 60;
+
+        gsap.from(el, {
+          ...from,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%',
+            once: true,
+          },
+        });
+      });
+
+      // Stagger groups — children animate one after another
+      document.querySelectorAll<HTMLElement>('[data-stagger]').forEach((container) => {
+        gsap.from(container.children, {
+          y: 50,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: container,
+            start: 'top 85%',
+            once: true,
+          },
+        });
+      });
+
+      // ==========================================
+      // 5. Magnetic Buttons
+      // ==========================================
+      document.querySelectorAll<HTMLElement>('.magnetic-btn').forEach((btn) => {
+        const strength = 0.3;
+        const xTo = gsap.quickTo(btn, 'x', { duration: 0.5, ease: 'power3' });
+        const yTo = gsap.quickTo(btn, 'y', { duration: 0.5, ease: 'power3' });
+
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const dx = e.clientX - (rect.left + rect.width / 2);
+          const dy = e.clientY - (rect.top + rect.height / 2);
+          xTo(dx * strength);
+          yTo(dy * strength);
+        });
+
+        btn.addEventListener('mouseleave', () => {
+          xTo(0);
+          yTo(0);
+        });
+      });
+
+      // ==========================================
+      // 6. Horizontal Scroll Section
+      // ==========================================
+      const hScrollWrapper = document.querySelector<HTMLElement>('.horizontal-scroll-wrapper');
+      const hScrollTrack = document.querySelector<HTMLElement>('.horizontal-scroll-track');
+
+      if (hScrollWrapper && hScrollTrack) {
+        const totalWidth = hScrollTrack.scrollWidth - hScrollWrapper.offsetWidth;
+
+        gsap.to(hScrollTrack, {
+          x: -totalWidth,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: hScrollWrapper,
+            pin: true,
+            scrub: 1,
+            end: () => `+=${totalWidth}`,
+          },
+        });
+      }
+
+      // ==========================================
+      // 7. Header shadow on scroll
+      // ==========================================
+      const header = document.getElementById('site-header');
+      if (header) {
+        ScrollTrigger.create({
+          start: 'top -80',
+          onUpdate: (self) => {
+            header.classList.toggle('shadow-sm', self.progress > 0);
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

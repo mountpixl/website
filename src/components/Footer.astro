@@ -1,0 +1,109 @@
+---
+const year = new Date().getFullYear();
+
+const services = [
+  { label: 'AI Strategy & Consulting', href: '/services#strategy' },
+  { label: 'AI Agent Development', href: '/services#agents' },
+  { label: 'Workflow Automation', href: '/services#automation' },
+  { label: 'Training & Workshops', href: '/services#training' },
+];
+
+const company = [
+  { label: 'About', href: '/about' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
+  { label: 'Privacy Policy', href: '/privacy' },
+];
+---
+
+<footer class="bg-deep-green text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+      <!-- Brand -->
+      <div class="lg:col-span-1">
+        <a href="/" class="flex items-center gap-2 mb-4">
+          <div class="w-8 h-8 rounded-full bg-forest flex items-center justify-center">
+            <svg viewBox="0 0 24 24" class="w-5 h-5 text-gold" fill="currentColor">
+              <path d="M12 2L2 12l4 4 6-6 6 6 4-4L12 2z" />
+            </svg>
+          </div>
+          <span class="font-heading font-bold text-lg text-white">Mount Pixl</span>
+        </a>
+        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+          AI consulting and automation for small-to-medium businesses. We help you work smarter with practical AI solutions.
+        </p>
+        <div class="flex items-center gap-2 text-sm text-gray-400">
+          <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" />
+          </svg>
+          Sherwood Park, Alberta, Canada
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h3 class="font-heading font-semibold text-gold text-sm uppercase tracking-wider mb-4">Services</h3>
+        <ul class="space-y-3">
+          {services.map((link) => (
+            <li>
+              <a href={link.href} class="text-gray-400 hover:text-white text-sm transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h3 class="font-heading font-semibold text-gold text-sm uppercase tracking-wider mb-4">Company</h3>
+        <ul class="space-y-3">
+          {company.map((link) => (
+            <li>
+              <a href={link.href} class="text-gray-400 hover:text-white text-sm transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- CTA -->
+      <div>
+        <h3 class="font-heading font-semibold text-gold text-sm uppercase tracking-wider mb-4">Get Started</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          Ready to see what AI can do for your business?
+        </p>
+        <a
+          href="/assessment"
+          class="inline-block px-5 py-2.5 bg-gold hover:bg-gold-dark text-deep-green font-semibold text-sm rounded-lg transition-all hover:shadow-lg"
+        >
+          Free AI Assessment
+        </a>
+        <div class="mt-6">
+          <a href="mailto:hello@mountpixl.com" class="text-gray-400 hover:text-gold text-sm transition-colors">
+            hello@mountpixl.com
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-gray-500 text-xs">
+        &copy; {year} Mount Pixl. All rights reserved.
+      </p>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white/5 rounded-full text-xs text-gray-400">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 36 36" fill="currentColor">
+            <path fill="#FF0000" d="M32 5H4a4 4 0 00-4 4v18a4 4 0 004 4h28a4 4 0 004-4V9a4 4 0 00-4-4z"/>
+            <path fill="#FFFFFF" d="M4 5h11v26H4a4 4 0 01-4-4V9a4 4 0 014-4zm17 0h11a4 4 0 014 4v18a4 4 0 01-4 4H21V5z"/>
+            <path fill="#FF0000" d="M14 5h8v26h-8z"/>
+            <path fill="#FF0000" d="M18 10l-2.5 5H13l1.5 1.5L13 22l5-2.5 5 2.5-1.5-5.5L23 15h-2.5z"/>
+          </svg>
+          Canadian-Owned
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,27 @@
+---
+const partners = [
+  'Anthropic',
+  'OpenAI',
+  'n8n',
+  'Make',
+  'Zapier',
+  'Slack',
+  'Google Workspace',
+  'Microsoft 365',
+];
+---
+
+<div class="py-12 bg-gray-100/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="text-center text-sm font-medium text-gray-500 uppercase tracking-wider mb-8">
+      Built with industry-leading AI platforms
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+      {partners.map((name) => (
+        <div class="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200/60 shadow-sm">
+          <span class="text-sm font-medium text-gray-600">{name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

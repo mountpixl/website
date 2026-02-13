@@ -1,0 +1,244 @@
+@import "tailwindcss";
+
+@theme {
+  /* Mount Pixl Brand Colors */
+  --color-gold: #FFB300;
+  --color-gold-light: #FFCA28;
+  --color-gold-dark: #E6A200;
+  --color-deep-green: #0E2311;
+  --color-forest: #00834C;
+  --color-lime: #BEC50D;
+  --color-lime-muted: #BFC540;
+  --color-teal: #146586;
+  --color-teal-light: #1A7FA8;
+
+  /* Neutrals */
+  --color-white: #FFFFFF;
+  --color-off-white: #FAFAF7;
+  --color-gray-100: #F3F4F6;
+  --color-gray-200: #E5E7EB;
+  --color-gray-300: #D1D5DB;
+  --color-gray-400: #9CA3AF;
+  --color-gray-500: #6B7280;
+  --color-gray-600: #4B5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1F2937;
+  --color-gray-900: #111827;
+
+  /* Typography */
+  --font-heading: 'Outfit', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Shadows */
+  --shadow-soft: 0 2px 15px -3px rgba(14, 35, 17, 0.07), 0 10px 20px -2px rgba(14, 35, 17, 0.04);
+  --shadow-card: 0 4px 6px -1px rgba(14, 35, 17, 0.05), 0 2px 4px -2px rgba(14, 35, 17, 0.05);
+  --shadow-elevated: 0 20px 25px -5px rgba(14, 35, 17, 0.1), 0 8px 10px -6px rgba(14, 35, 17, 0.1);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Lenis overrides */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-deep-green);
+    background-color: var(--color-white);
+    cursor: none;
+  }
+
+  /* Restore default cursor on mobile / touch */
+  @media (hover: none) {
+    body { cursor: auto; }
+    .custom-cursor { display: none !important; }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  /* Hide cursor on interactive elements (custom cursor handles it) */
+  a, button, input, textarea, select, [role="button"] {
+    cursor: none;
+  }
+  @media (hover: none) {
+    a, button, input, textarea, select, [role="button"] {
+      cursor: auto;
+    }
+  }
+}
+
+/* ========================================
+   Custom Cursor
+   ======================================== */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              height 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.custom-cursor.hovering {
+  width: 60px;
+  height: 60px;
+}
+
+/* ========================================
+   Grain / Noise Texture Overlay
+   ======================================== */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+}
+.grain-overlay::before {
+  content: '';
+  position: absolute;
+  inset: -200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  animation: grain 8s steps(10) infinite;
+}
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+/* ========================================
+   Marquee / Infinite Ticker
+   ======================================== */
+.marquee {
+  --duration: 30s;
+  --gap: 2rem;
+  display: flex;
+  overflow: hidden;
+  gap: var(--gap);
+  user-select: none;
+}
+.marquee-inner {
+  display: flex;
+  gap: var(--gap);
+  flex-shrink: 0;
+  align-items: center;
+  min-width: 100%;
+  animation: marquee var(--duration) linear infinite;
+}
+.marquee:hover .marquee-inner {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--gap))); }
+}
+
+/* ========================================
+   Text Reveal - Word Masking
+   ======================================== */
+.word-mask {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  padding-bottom: 0.05em;
+}
+.word-mask .word-inner {
+  display: inline-block;
+  transform: translateY(110%);
+}
+
+/* ========================================
+   Magnetic Button
+   ======================================== */
+.magnetic-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========================================
+   Horizontal Scroll Section
+   ======================================== */
+.horizontal-scroll-wrapper {
+  overflow: hidden;
+}
+.horizontal-scroll-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2rem;
+}
+.horizontal-scroll-panel {
+  flex-shrink: 0;
+  width: clamp(280px, 75vw, 400px);
+}
+
+/* ========================================
+   Stagger Reveal
+   ======================================== */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(60px);
+}
+[data-reveal="left"] {
+  transform: translateX(-60px);
+}
+[data-reveal="right"] {
+  transform: translateX(60px);
+}
+[data-reveal="scale"] {
+  transform: scale(0.9);
+}
+
+/* ========================================
+   Animated Gradient Background (Hero)
+   ======================================== */
+.gradient-animate {
+  background-size: 300% 300%;
+  animation: gradient-shift 12s ease infinite;
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ========================================
+   Stats Counter Animation
+   ======================================== */
+.stat-number {
+  font-variant-numeric: tabular-nums;
+}

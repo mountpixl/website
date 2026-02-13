@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const categories = [...new Set(posts.map((p) => p.data.category))];
+---
+
+<BaseLayout
+  title="Blog"
+  description="Practical AI insights, automation guides, and business strategy for small-to-medium businesses. Learn how to leverage AI to save time and grow."
+>
+  <!-- Hero -->
+  <section class="py-20 lg:py-28 bg-gradient-to-br from-deep-green via-deep-green to-forest">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <h1 class="font-heading text-4xl sm:text-5xl font-extrabold text-white mb-6">
+          AI insights for <span class="text-gold">real businesses.</span>
+        </h1>
+        <p class="text-lg text-gray-300 max-w-2xl leading-relaxed">
+          No hype, no jargon — just practical advice on using AI to save time, cut costs, and grow your business.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts -->
+  <section class="py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {posts.length === 0 ? (
+        <div class="text-center py-16">
+          <p class="text-gray-500 text-lg">Blog posts coming soon. Check back shortly!</p>
+        </div>
+      ) : (
+        <>
+          <!-- Category Filter -->
+          {categories.length > 1 && (
+            <div class="flex flex-wrap gap-2 mb-10">
+              <span class="px-4 py-2 bg-forest text-white text-sm font-medium rounded-full">All</span>
+              {categories.map((cat) => (
+                <span class="px-4 py-2 bg-gray-100 text-gray-600 text-sm font-medium rounded-full hover:bg-gray-200 cursor-pointer transition-colors">
+                  {cat}
+                </span>
+              ))}
+            </div>
+          )}
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.map((post) => (
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                date={post.data.date.toISOString()}
+                category={post.data.category}
+                slug={post.id}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-off-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-2xl font-bold text-deep-green mb-4">
+        Want personalized advice?
+      </h2>
+      <p class="text-gray-600 mb-6">
+        Take our free AI Readiness Assessment and get recommendations specific to your business.
+      </p>
+      <a
+        href="/assessment"
+        class="inline-flex items-center justify-center px-8 py-3 bg-gold hover:bg-gold-dark text-deep-green font-semibold rounded-lg transition-all hover:shadow-lg hover:-translate-y-0.5 text-sm"
+      >
+        Start Your Free Assessment
+      </a>
+    </div>
+  </section>
+</BaseLayout>

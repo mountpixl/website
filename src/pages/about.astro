@@ -1,0 +1,211 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const values = [
+  {
+    title: 'Transparency',
+    description: 'No black boxes. We explain what we build, how it works, and what it costs — before we start.',
+    icon: '&#x1F50D;',
+  },
+  {
+    title: 'Results-first',
+    description: 'We measure success by your outcomes, not by how much technology we deploy. If it doesn\'t move the needle, we don\'t build it.',
+    icon: '&#x1F4C8;',
+  },
+  {
+    title: 'Practical over perfect',
+    description: 'We focus on solutions that work in the real world, for real businesses, with real constraints. Done well beats done perfectly.',
+    icon: '&#x1F527;',
+  },
+  {
+    title: 'Canadian-owned',
+    description: 'We\'re a proudly Canadian business. Your data stays in Canada, your consultant is local, and we understand the Canadian market.',
+    icon: '&#x1F341;',
+  },
+];
+
+const differentiators = [
+  {
+    theirs: 'Big firms charge $50K just for a strategy deck',
+    ours: 'We deliver working solutions, not slide decks',
+  },
+  {
+    theirs: 'Tech vendors push their platform regardless of fit',
+    ours: 'We recommend the right tool for the job, even if it\'s free',
+  },
+  {
+    theirs: 'Consultants speak in jargon and buzzwords',
+    ours: 'We speak plain English and show you exactly what your AI does',
+  },
+  {
+    theirs: 'Engagements drag on for months with unclear scope',
+    ours: 'Fixed-scope projects with clear deliverables and timelines',
+  },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="Mount Pixl is a Canadian AI consulting company helping small-to-medium businesses automate workflows and adopt AI practically."
+>
+  <!-- Hero -->
+  <section class="py-20 lg:py-28 bg-gradient-to-br from-deep-green via-deep-green to-forest">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6">
+          <span data-split-reveal>AI shouldn't be</span>
+          <br /><span data-split-reveal class="text-gold">complicated.</span>
+        </h1>
+        <p class="text-lg text-gray-300 max-w-2xl leading-relaxed" data-reveal>
+          We started Mount Pixl because we believe every business — not just the ones with massive budgets — deserves access to practical, powerful AI.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder Story -->
+  <section class="py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-forest/10 rounded-full text-sm text-forest font-medium mb-6">
+            The founder
+          </div>
+          <h2 class="font-heading text-3xl font-bold text-deep-green mb-6" data-split-reveal>
+            Hey, I'm Izac.
+          </h2>
+          <div class="space-y-4 text-gray-600 leading-relaxed">
+            <p>
+              I've spent years building software, automating workflows, and helping businesses figure out how technology can actually make their lives easier — not just add another tool to the pile.
+            </p>
+            <p>
+              When AI tools started getting genuinely good — not just gimmicky, but actually capable of handling real work — I realized most small businesses were going to miss the boat. Not because they didn't care, but because the consulting world made it feel impossible: too expensive, too complex, too buzzwordy.
+            </p>
+            <p>
+              That's why I started Mount Pixl. I wanted to bring the same AI capabilities that big companies use to SMBs — but without the six-figure price tags and 90-page strategy decks. Just practical solutions that save you time and money.
+            </p>
+            <p class="font-medium text-deep-green">
+              Based in Sherwood Park, Alberta, I work directly with every client. No hand-offs, no junior staff — you get my full attention and expertise.
+            </p>
+          </div>
+        </div>
+        <div class="bg-gradient-to-br from-forest/5 to-gold/5 rounded-2xl p-8 border border-gray-200">
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center shrink-0">
+                <span class="text-lg">&#x1F4BB;</span>
+              </div>
+              <div>
+                <h3 class="font-heading font-semibold text-deep-green mb-1">Software Development</h3>
+                <p class="text-gray-600 text-sm">Full-stack development across web, mobile, and backend systems</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center shrink-0">
+                <span class="text-lg">&#x1F916;</span>
+              </div>
+              <div>
+                <h3 class="font-heading font-semibold text-deep-green mb-1">AI & Automation</h3>
+                <p class="text-gray-600 text-sm">Building custom AI agents, workflows, and integrations for businesses</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center shrink-0">
+                <span class="text-lg">&#x1F3AF;</span>
+              </div>
+              <div>
+                <h3 class="font-heading font-semibold text-deep-green mb-1">Business Strategy</h3>
+                <p class="text-gray-600 text-sm">Translating business problems into practical technology solutions</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="py-20 lg:py-28 bg-off-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-deep-green mb-6">
+          Our mission
+        </h2>
+        <p class="text-xl text-gray-700 leading-relaxed font-medium">
+          Make AI accessible and practical for every small-to-medium business — not just the ones with enterprise budgets.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-deep-green mb-12 text-center" data-split-reveal>
+        What we stand for
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-stagger>
+        {values.map((value) => (
+          <div class="bg-white rounded-2xl p-8 border border-gray-200 hover:border-gold/40 transition-all duration-300 hover:shadow-card">
+            <div class="w-12 h-12 rounded-xl bg-forest/10 flex items-center justify-center mb-5">
+              <span class="text-xl" set:html={value.icon} />
+            </div>
+            <h3 class="font-heading text-lg font-bold text-deep-green mb-2">{value.title}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Mount Pixl -->
+  <section class="py-20 lg:py-28 bg-deep-green">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-12 text-center" data-split-reveal>
+        Why Mount Pixl?
+      </h2>
+      <div class="space-y-4 max-w-3xl mx-auto">
+        {differentiators.map((d) => (
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-white/5 rounded-xl p-5 border border-white/10">
+              <div class="flex items-center gap-2 mb-2">
+                <svg class="w-4 h-4 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-xs text-gray-400 uppercase tracking-wider font-medium">Others</span>
+              </div>
+              <p class="text-gray-300 text-sm">{d.theirs}</p>
+            </div>
+            <div class="bg-gold/10 rounded-xl p-5 border border-gold/20">
+              <div class="flex items-center gap-2 mb-2">
+                <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-xs text-gold uppercase tracking-wider font-medium">Mount Pixl</span>
+              </div>
+              <p class="text-white text-sm font-medium">{d.ours}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 lg:py-28">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-deep-green mb-4" data-split-reveal>
+        Let's talk about your business.
+      </h2>
+      <p class="text-gray-600 text-lg mb-8 max-w-xl mx-auto" data-reveal>
+        Book a free consultation and I'll show you exactly how AI can save you time and money — no strings attached.
+      </p>
+      <a
+        href="/contact"
+        class="magnetic-btn inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-gold-light text-deep-green font-bold rounded-2xl text-lg transition-all hover:shadow-[0_0_60px_rgba(255,179,0,0.25)]"
+      >
+        Book Your Free Consultation
+      </a>
+    </div>
+  </section>
+</BaseLayout>

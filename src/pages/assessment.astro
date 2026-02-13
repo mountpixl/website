@@ -1,0 +1,357 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="AI Readiness Assessment"
+  description="Take our free 3-minute AI Readiness Assessment and discover where AI can make the biggest impact in your business."
+>
+  <!-- Hero -->
+  <section class="py-16 lg:py-20 bg-gradient-to-br from-deep-green via-deep-green to-forest">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-sm text-gold mb-6">
+        <span class="w-2 h-2 bg-gold rounded-full animate-pulse"></span>
+        Free — No signup required
+      </div>
+      <h1 class="font-heading text-4xl sm:text-5xl font-extrabold text-white mb-6">
+        AI Readiness Assessment
+      </h1>
+      <p class="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+        Answer 7 quick questions and get a personalized report on where AI can save you the most time and money.
+      </p>
+    </div>
+  </section>
+
+  <!-- Assessment Form -->
+  <section class="py-16 lg:py-24">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="assessment-container">
+        <!-- Step indicator -->
+        <div class="mb-10">
+          <div class="flex items-center justify-between mb-2">
+            <span id="step-label" class="text-sm font-medium text-forest">Question 1 of 7</span>
+            <span id="step-percent" class="text-sm text-gray-400">14%</span>
+          </div>
+          <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full bg-gold rounded-full transition-all duration-500" style="width: 14%"></div>
+          </div>
+        </div>
+
+        <!-- Questions -->
+        <form id="assessment-form">
+          <!-- Q1: Team Size -->
+          <div class="assessment-step" data-step="1">
+            <h2 class="font-heading text-2xl font-bold text-deep-green mb-2">How many people are on your team?</h2>
+            <p class="text-gray-500 text-sm mb-6">This helps us understand the scale of potential impact.</p>
+            <div class="space-y-3">
+              <label class="assessment-option">
+                <input type="radio" name="team_size" value="1-5" class="sr-only peer" />
+                <div class="w-full p-4 rounded-xl border-2 border-gray-200 peer-checked:border-gold peer-checked:bg-gold/5 cursor-pointer transition-all hover:border-gray-300">
+                  <span class="font-medium text-deep-green">1–5 people</span>
+                </div>
+              </label>
+              <label class="assessment-option">
+                <input type="radio" name="team_size" value="6-15" class="sr-only peer" />
+                <div class="w-full p-4 rounded-xl border-2 border-gray-200 peer-checked:border-gold peer-checked:bg-gold/5 cursor-pointer transition-all hover:border-gray-300">
+                  <span class="font-medium text-deep-green">6–15 people</span>
+                </div>
+              </label>
+              <label class="assessment-option">
+                <input type="radio" name="team_size" value="16-50" class="sr-only peer" />
+                <div class="w-full p-4 rounded-xl border-2 border-gray-200 peer-checked:border-gold peer-checked:bg-gold/5 cursor-pointer transition-all hover:border-gray-300">
+                  <span class="font-medium text-deep-green">16–50 people</span>
+                </div>
+              </label>
+              <label class="assessment-option">
+                <input type="radio" name="team_size" value="50+" class="sr-only peer" />
+                <div class="w-full p-4 rounded-xl border-2 border-gray-200 peer-checked:border-gold peer-checked:bg-gold/5 cursor-pointer transition-all hover:border-gray-300">
+                  <span class="font-medium text-deep-green">50+ people</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Q2: Industry -->
+          <div class="assessment-step hidden" data-step="2">
+            <h2 class="font-heading text-2xl font-bold text-deep-green mb-2">What industry are you in?</h2>
+            <p class="text-gray-500 text-sm mb-6">Different industries benefit from AI in different ways.</p>
+            <div class="space-y-3">
+              {['Professional Services', 'Trades & Construction', 'Retail & E-commerce', 'Healthcare', 'Real Estate', 'Manufacturing', 'Other'].map((industry) => (
+                <label class="assessment-option">
+                  <input type="radio" name="industry" value={industry.toLowerCase().replace(/\s+/g, '-')} class="sr-only peer" />
+                  <div class="w-full p-4 rounded-xl border-2 border-gray-200 peer-checked:border-gold peer-checked:bg-gold/5 cursor-pointer transition-all hover:border-gray-300">
+                    <span class="font-medium text-deep-green">{industry}</span>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <!-- Q3: Repetitive Tasks -->
+          <div class="assessment-step hidden" data-step="3">
+            <h2 class="font-heading text-2xl font-bold text-deep-green mb-2">How much time does your team spend on repetitive tasks per week?</h2>
+            <p class="text-gray-500 text-sm mb-6">Think data entry, copy-pasting, manual reporting, follow-up emails.</p>
+            <div class="space-y-3">
+              {[
+                ['less-5', 'Less than 5 hours'],
+                ['5-15', '5–15 hours'],
+                ['15-30', '15–30 hours'],
+                ['30-plus', '30+ hours'],
+              ].map(([value, label]) => (
+                <label class="assessment-option">
+                  <input type="radio" name="repetitive_hours" value={value} class="sr-only peer" />
+                  <div class="w-full p-4 rounded-xl border-2 border-gray-200 peer-checked:border-gold peer-checked:bg-gold/5 cursor-pointer transition-all hover:border-gray-300">
+                    <span class="font-medium text-deep-green">{label}</span>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <!-- Q4: Current Tools -->
+          <div class="assessment-step hidden" data-step="4">
+            <h2 class="font-heading text-2xl font-bold text-deep-green mb-2">Which tools does your business currently use?</h2>
+            <p class="text-gray-500 text-sm mb-6">Select all that apply.</p>
+            <div class="grid grid-cols-2 gap-3">
+              {['Google Workspace', 'Microsoft 365', 'Slack', 'QuickBooks/Xero', 'CRM (Salesforce, HubSpot, etc.)', 'Project Management (Asana, Monday, etc.)', 'Custom/Legacy Software', 'None of these'].map((tool) => (
+                <label class="assessment-option">
+                  <input type="checkbox" name="tools" value={tool.toLowerCase().replace(/[\s\/(),.]+/g, '-')} class="sr-only peer" />
+                  <div class="w-full p-3 rounded-xl border-2 border-gray-200 peer-checked:border-gold peer-checked:bg-gold/5 cursor-pointer transition-all hover:border-gray-300 text-center">
+                    <span class="font-medium text-deep-green text-sm">{tool}</span>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <!-- Q5: Biggest Pain Point -->
+          <div class="assessment-step hidden" data-step="5">
+            <h2 class="font-heading text-2xl font-bold text-deep-green mb-2">What's your biggest operational pain point?</h2>
+            <p class="text-gray-500 text-sm mb-6">Pick the one that resonates most.</p>
+            <div class="space-y-3">
+              {[
+                'Too many manual, repetitive tasks',
+                'Disconnected tools and data silos',
+                'Slow response times to customers',
+                'Difficulty scaling without adding headcount',
+                'Not sure — I just know we could be more efficient',
+              ].map((pain) => (
+                <label class="assessment-option">
+                  <input type="radio" name="pain_point" value={pain.toLowerCase().substring(0, 30).replace(/\s+/g, '-')} class="sr-only peer" />
+                  <div class="w-full p-4 rounded-xl border-2 border-gray-200 peer-checked:border-gold peer-checked:bg-gold/5 cursor-pointer transition-all hover:border-gray-300">
+                    <span class="font-medium text-deep-green">{pain}</span>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <!-- Q6: AI Familiarity -->
+          <div class="assessment-step hidden" data-step="6">
+            <h2 class="font-heading text-2xl font-bold text-deep-green mb-2">How familiar is your team with AI tools?</h2>
+            <p class="text-gray-500 text-sm mb-6">No wrong answers here.</p>
+            <div class="space-y-3">
+              {[
+                ["not-at-all", "Not at all — we haven't explored AI yet"],
+                ['dabbled', 'A little — we\'ve tried ChatGPT or similar tools'],
+                ['moderate', 'Moderate — we use AI tools occasionally for work'],
+                ['advanced', 'Advanced — we actively use AI in our workflows'],
+              ].map(([value, label]) => (
+                <label class="assessment-option">
+                  <input type="radio" name="ai_familiarity" value={value} class="sr-only peer" />
+                  <div class="w-full p-4 rounded-xl border-2 border-gray-200 peer-checked:border-gold peer-checked:bg-gold/5 cursor-pointer transition-all hover:border-gray-300">
+                    <span class="font-medium text-deep-green">{label}</span>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <!-- Q7: Budget -->
+          <div class="assessment-step hidden" data-step="7">
+            <h2 class="font-heading text-2xl font-bold text-deep-green mb-2">What's your approximate monthly budget for AI/automation tools?</h2>
+            <p class="text-gray-500 text-sm mb-6">This helps us recommend solutions that fit.</p>
+            <div class="space-y-3">
+              {[
+                ['under-500', 'Under $500/month'],
+                ['500-2000', '$500–$2,000/month'],
+                ['2000-5000', '$2,000–$5,000/month'],
+                ['5000-plus', '$5,000+/month'],
+                ['not-sure', 'Not sure yet'],
+              ].map(([value, label]) => (
+                <label class="assessment-option">
+                  <input type="radio" name="budget" value={value} class="sr-only peer" />
+                  <div class="w-full p-4 rounded-xl border-2 border-gray-200 peer-checked:border-gold peer-checked:bg-gold/5 cursor-pointer transition-all hover:border-gray-300">
+                    <span class="font-medium text-deep-green">{label}</span>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <div class="flex items-center justify-between mt-10">
+            <button
+              type="button"
+              id="prev-btn"
+              class="hidden px-6 py-3 text-sm font-medium text-gray-600 hover:text-deep-green transition-colors"
+            >
+              &larr; Back
+            </button>
+            <div></div>
+            <button
+              type="button"
+              id="next-btn"
+              class="px-8 py-3 bg-gold hover:bg-gold-dark text-deep-green font-semibold rounded-lg transition-all hover:shadow-lg hover:-translate-y-0.5 text-sm"
+            >
+              Next &rarr;
+            </button>
+          </div>
+        </form>
+
+        <!-- Results (hidden initially) -->
+        <div id="assessment-results" class="hidden">
+          <div class="text-center mb-10">
+            <div class="w-20 h-20 mx-auto rounded-full bg-gold/20 flex items-center justify-center mb-6">
+              <span class="text-4xl font-heading font-extrabold text-gold" id="score-display">0</span>
+            </div>
+            <h2 class="font-heading text-3xl font-bold text-deep-green mb-2">Your AI Readiness Score</h2>
+            <p id="score-summary" class="text-gray-600 text-lg"></p>
+          </div>
+
+          <div id="recommendations" class="space-y-4 mb-10"></div>
+
+          <div class="bg-gradient-to-br from-forest to-deep-green rounded-2xl p-8 text-center">
+            <h3 class="font-heading text-xl font-bold text-white mb-3">
+              Want to discuss your results?
+            </h3>
+            <p class="text-gray-300 text-sm mb-5">
+              Book a free consultation and we'll walk through your assessment together and create a concrete action plan.
+            </p>
+            <a
+              href="/contact"
+              class="inline-flex items-center gap-2 px-8 py-3 bg-gold hover:bg-gold-dark text-deep-green font-semibold rounded-lg transition-all hover:shadow-lg text-sm"
+            >
+              Book a Free Consultation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const steps = document.querySelectorAll<HTMLDivElement>('.assessment-step');
+  const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+  const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+  const progressBar = document.getElementById('progress-bar') as HTMLDivElement;
+  const stepLabel = document.getElementById('step-label');
+  const stepPercent = document.getElementById('step-percent');
+  const form = document.getElementById('assessment-form') as HTMLFormElement;
+  const results = document.getElementById('assessment-results') as HTMLDivElement;
+  const totalSteps = 7;
+  let currentStep = 1;
+
+  function showStep(step: number) {
+    steps.forEach((el) => {
+      el.classList.toggle('hidden', parseInt(el.dataset.step || '0') !== step);
+    });
+    prevBtn?.classList.toggle('hidden', step === 1);
+    const pct = Math.round((step / totalSteps) * 100);
+    if (progressBar) progressBar.style.width = pct + '%';
+    if (stepLabel) stepLabel.textContent = `Question ${step} of ${totalSteps}`;
+    if (stepPercent) stepPercent.textContent = pct + '%';
+    if (step === totalSteps) {
+      nextBtn.textContent = 'See My Results';
+    } else {
+      nextBtn.textContent = 'Next →';
+    }
+  }
+
+  nextBtn?.addEventListener('click', () => {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      showStep(currentStep);
+    } else {
+      showResults();
+    }
+  });
+
+  prevBtn?.addEventListener('click', () => {
+    if (currentStep > 1) {
+      currentStep--;
+      showStep(currentStep);
+    }
+  });
+
+  // Auto-advance on radio selection
+  document.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach((radio) => {
+    radio.addEventListener('change', () => {
+      setTimeout(() => {
+        if (currentStep < totalSteps) {
+          currentStep++;
+          showStep(currentStep);
+        }
+      }, 300);
+    });
+  });
+
+  function showResults() {
+    form?.classList.add('hidden');
+    document.querySelector('.mb-10')?.classList.add('hidden');
+    results?.classList.remove('hidden');
+
+    const formData = new FormData(form);
+    let score = 50;
+    const hours = formData.get('repetitive_hours') as string;
+    if (hours === '15-30') score += 15;
+    else if (hours === '30-plus') score += 25;
+    else if (hours === '5-15') score += 10;
+
+    const familiarity = formData.get('ai_familiarity') as string;
+    if (familiarity === 'not-at-all') score += 10;
+    else if (familiarity === 'dabbled') score += 5;
+
+    const team = formData.get('team_size') as string;
+    if (team === '16-50' || team === '50+') score += 10;
+
+    score = Math.min(score, 95);
+
+    const scoreEl = document.getElementById('score-display');
+    const summaryEl = document.getElementById('score-summary');
+    const recsEl = document.getElementById('recommendations');
+
+    if (scoreEl) scoreEl.textContent = String(score);
+    if (summaryEl) {
+      if (score >= 75) {
+        summaryEl.textContent = 'Your business has high AI potential. There are significant opportunities to automate and optimize.';
+      } else if (score >= 50) {
+        summaryEl.textContent = 'Your business has solid AI potential. A few targeted automations could make a big difference.';
+      } else {
+        summaryEl.textContent = 'You\'re early in your AI journey. Starting with simple automations would deliver quick wins.';
+      }
+    }
+
+    if (recsEl) {
+      const recs = [
+        { title: 'Start with workflow automation', desc: 'Based on your responses, automating repetitive tasks should be your first priority. This typically saves 10-20 hours per week.' },
+        { title: 'Integrate your existing tools', desc: 'Connecting your current tools with AI can eliminate data silos and manual data transfer.' },
+        { title: 'Consider an AI strategy session', desc: 'A structured assessment of your operations will reveal the highest-ROI opportunities specific to your business.' },
+      ];
+      recsEl.innerHTML = recs.map((r) => `
+        <div class="bg-off-white rounded-xl p-6 border border-gray-200">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-gold mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <h3 class="font-heading font-bold text-deep-green mb-1">${r.title}</h3>
+              <p class="text-gray-600 text-sm">${r.desc}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+</script>

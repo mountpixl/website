@@ -1,0 +1,185 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Mount Pixl AI Services',
+  description: 'AI consulting, agent development, workflow automation, and training for SMBs.',
+  url: 'https://mountpixl.com/services',
+  provider: {
+    '@type': 'Organization',
+    name: 'Mount Pixl',
+  },
+};
+
+const services = [
+  {
+    id: 'strategy',
+    title: 'AI Strategy & Consulting',
+    icon: '&#x1F9ED;',
+    description: 'Not sure where to start with AI? We audit your workflows, identify the highest-impact opportunities, and build a clear, actionable roadmap tailored to your business.',
+    outcomes: [
+      'Full workflow audit and AI readiness assessment',
+      'Prioritized list of automation opportunities',
+      '90-day implementation roadmap with ROI projections',
+      'Technology stack recommendations',
+    ],
+    useCases: [
+      'A real estate agency wanting to automate lead follow-ups and document processing',
+      'A trades business looking to streamline scheduling, quoting, and invoicing',
+      'An e-commerce brand wanting to personalize customer experiences with AI',
+    ],
+  },
+  {
+    id: 'agents',
+    title: 'AI Agent Development',
+    icon: '&#x1F916;',
+    description: 'We build custom AI agents that handle real work — not just chatbots, but intelligent systems that reason, decide, and act on behalf of your business.',
+    outcomes: [
+      'Custom agents built on Claude, GPT, and open-source models',
+      'Tool integrations and MCP server development',
+      'Production deployment with monitoring and logging',
+      'Ongoing optimization based on real usage data',
+    ],
+    useCases: [
+      'A customer support agent that resolves 80% of tickets without human intervention',
+      'A document processing agent that extracts, validates, and routes data automatically',
+      'A content agent that drafts, reviews, and schedules social media posts',
+    ],
+  },
+  {
+    id: 'automation',
+    title: 'Workflow Automation',
+    icon: '&#x26A1;',
+    description: 'Connect your disconnected tools and eliminate manual steps with intelligent automation flows that run reliably, 24/7.',
+    outcomes: [
+      'Custom n8n, Make, and Zapier workflows',
+      'API integrations between your existing tools',
+      'Automated data pipelines and reporting',
+      'Error handling and monitoring dashboards',
+    ],
+    useCases: [
+      'Auto-syncing leads from your website to your CRM with enrichment',
+      'Automated invoice processing from email to accounting software',
+      'Multi-channel social media posting triggered by a single content approval',
+    ],
+  },
+  {
+    id: 'training',
+    title: 'Training & Workshops',
+    icon: '&#x1F393;',
+    description: 'Get your team confident and productive with AI through hands-on training tailored to your business, your tools, and your workflows.',
+    outcomes: [
+      'Custom training programs for your team',
+      'Prompt engineering for your specific use cases',
+      'AI adoption strategy and change management',
+      'Recorded sessions and reference materials',
+    ],
+    useCases: [
+      'Teaching a marketing team to use AI for content creation and SEO',
+      'Training operations staff on AI-assisted data analysis and reporting',
+      'Workshops for leadership on AI strategy and competitive positioning',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Services"
+  description="AI consulting, agent development, workflow automation, and training services for small-to-medium businesses in Alberta and across Canada."
+  schema={schema}
+>
+  <!-- Hero -->
+  <section class="py-20 lg:py-28 bg-gradient-to-br from-deep-green via-deep-green to-forest">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6">
+          <span data-split-reveal>AI services that</span>
+          <br /><span data-split-reveal class="text-gold">actually deliver.</span>
+        </h1>
+        <p class="text-lg text-gray-300 max-w-2xl leading-relaxed" data-reveal>
+          From strategy to implementation, we handle every step of bringing AI into your business. No fluff, no jargon — just practical solutions that save you time and money.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Detail -->
+  {services.map((service, i) => (
+    <section id={service.id} class:list={['py-20 lg:py-28', i % 2 === 1 ? 'bg-off-white' : 'bg-white']}>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-forest/10 flex items-center justify-center mb-6">
+              <span class="text-2xl" set:html={service.icon} />
+            </div>
+            <h2 class="font-heading text-3xl font-bold text-deep-green mb-4" data-split-reveal>{service.title}</h2>
+            <p class="text-gray-600 leading-relaxed mb-8" data-reveal>{service.description}</p>
+
+            <h3 class="font-heading text-sm font-semibold text-forest uppercase tracking-wider mb-4">Key Outcomes</h3>
+            <ul class="space-y-3 mb-8">
+              {service.outcomes.map((outcome) => (
+                <li class="flex items-start gap-3 text-gray-700">
+                  <svg class="w-5 h-5 text-gold mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  {outcome}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href="/contact"
+              class="magnetic-btn inline-flex items-center gap-2 px-6 py-3 bg-gold hover:bg-gold-dark text-deep-green font-semibold rounded-lg transition-all hover:shadow-[0_0_30px_rgba(255,179,0,0.25)] text-sm"
+            >
+              Get started with {service.title.split(' ')[0]} {service.title.split(' ')[1]}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-card">
+            <h3 class="font-heading text-sm font-semibold text-forest uppercase tracking-wider mb-5">Example Use Cases</h3>
+            <div class="space-y-4">
+              {service.useCases.map((uc) => (
+                <div class="flex items-start gap-3 p-4 rounded-xl bg-off-white">
+                  <div class="w-2 h-2 rounded-full bg-gold mt-2 shrink-0"></div>
+                  <p class="text-gray-700 text-sm leading-relaxed">{uc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- CTA -->
+  <section class="py-20 lg:py-28 bg-gradient-to-br from-forest to-deep-green">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4" data-split-reveal>
+        Not sure which service you need?
+      </h2>
+      <p class="text-gray-300 text-lg mb-8 max-w-xl mx-auto" data-reveal>
+        Take our free AI Readiness Assessment and we'll recommend the best starting point for your business.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center" data-reveal>
+        <a
+          href="/assessment"
+          class="magnetic-btn inline-flex items-center justify-center px-8 py-4 bg-gold hover:bg-gold-light text-deep-green font-bold rounded-xl text-base transition-all hover:shadow-[0_0_40px_rgba(255,179,0,0.3)]"
+        >
+          Take the Free Assessment
+        </a>
+        <a
+          href="/contact"
+          class="magnetic-btn inline-flex items-center justify-center px-8 py-4 border border-white/20 hover:border-gold/40 text-white font-semibold rounded-xl text-base transition-all hover:bg-white/[0.03]"
+        >
+          Book a Consultation
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
