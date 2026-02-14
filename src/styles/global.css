@@ -59,13 +59,6 @@
     font-family: var(--font-body);
     color: var(--color-deep-green);
     background-color: var(--color-white);
-    cursor: none;
-  }
-
-  /* Restore default cursor on mobile / touch */
-  @media (hover: none) {
-    body { cursor: auto; }
-    .custom-cursor { display: none !important; }
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -74,38 +67,6 @@
     line-height: 1.1;
   }
 
-  /* Hide cursor on interactive elements (custom cursor handles it) */
-  a, button, input, textarea, select, [role="button"] {
-    cursor: none;
-  }
-  @media (hover: none) {
-    a, button, input, textarea, select, [role="button"] {
-      cursor: auto;
-    }
-  }
-}
-
-/* ========================================
-   Custom Cursor
-   ======================================== */
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--color-gold);
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
-              height 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-}
-.custom-cursor.hovering {
-  width: 60px;
-  height: 60px;
 }
 
 /* ========================================
@@ -179,16 +140,6 @@
 .word-mask .word-inner {
   display: inline-block;
   transform: translateY(110%);
-}
-
-/* ========================================
-   Magnetic Button
-   ======================================== */
-.magnetic-btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* ========================================

@@ -73,9 +73,6 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
     <ViewTransitions />
   </head>
   <body class="min-h-screen flex flex-col bg-white text-deep-green antialiased">
-    <!-- Custom Cursor -->
-    <div class="custom-cursor" id="custom-cursor"></div>
-
     <!-- Grain Texture Overlay -->
     <div class="grain-overlay" aria-hidden="true"></div>
 
@@ -109,27 +106,7 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
       gsap.ticker.lagSmoothing(0);
 
       // ==========================================
-      // 2. Custom Cursor (mix-blend-mode: difference)
-      // ==========================================
-      const cursor = document.getElementById('custom-cursor');
-      if (cursor && window.matchMedia('(hover: hover)').matches) {
-        const xTo = gsap.quickTo(cursor, 'left', { duration: 0.4, ease: 'power3' });
-        const yTo = gsap.quickTo(cursor, 'top', { duration: 0.4, ease: 'power3' });
-
-        window.addEventListener('mousemove', (e) => {
-          xTo(e.clientX);
-          yTo(e.clientY);
-        });
-
-        // Grow cursor on interactive elements
-        document.querySelectorAll('a, button, [role="button"], input, textarea, select').forEach((el) => {
-          el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-          el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
-        });
-      }
-
-      // ==========================================
-      // 3. Text Split Reveal Animations
+      // 2. Text Split Reveal Animations
       // ==========================================
       document.querySelectorAll<HTMLElement>('[data-split-reveal]').forEach((el) => {
         const text = el.textContent || '';
@@ -190,29 +167,7 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteU
       });
 
       // ==========================================
-      // 5. Magnetic Buttons
-      // ==========================================
-      document.querySelectorAll<HTMLElement>('.magnetic-btn').forEach((btn) => {
-        const strength = 0.3;
-        const xTo = gsap.quickTo(btn, 'x', { duration: 0.5, ease: 'power3' });
-        const yTo = gsap.quickTo(btn, 'y', { duration: 0.5, ease: 'power3' });
-
-        btn.addEventListener('mousemove', (e) => {
-          const rect = btn.getBoundingClientRect();
-          const dx = e.clientX - (rect.left + rect.width / 2);
-          const dy = e.clientY - (rect.top + rect.height / 2);
-          xTo(dx * strength);
-          yTo(dy * strength);
-        });
-
-        btn.addEventListener('mouseleave', () => {
-          xTo(0);
-          yTo(0);
-        });
-      });
-
-      // ==========================================
-      // 6. Horizontal Scroll Section
+      // 5. Horizontal Scroll Section
       // ==========================================
       const hScrollWrapper = document.querySelector<HTMLElement>('.horizontal-scroll-wrapper');
       const hScrollTrack = document.querySelector<HTMLElement>('.horizontal-scroll-track');
